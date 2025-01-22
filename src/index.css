@@ -1,3 +1,4 @@
+/* Global Styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -5,18 +6,17 @@ body, html {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers everything horizontally */
-  justify-content: flex-start; /* Keeps the content at the top */
+  align-items: center;
+  justify-content: flex-start;
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9; /* Light background for contrast */
+  background-color: #f9f9f9;
 }
 
 #root {
-  width: 100%; /* Ensures React root spans the full width */
+  width: 100%;
 }
 
-
-/* Header.css */
+/* Header Styles */
 .header {
   width: 100%;
   padding: 20px 0;
@@ -47,6 +47,7 @@ body, html {
   gap: 10px;
 }
 
+/*hovering*/ 
 .nav-button {
   padding: 10px 15px;
   border-radius: 5px;
@@ -54,8 +55,138 @@ body, html {
   background: #fff;
   cursor: pointer;
   font-size: 16px;
+  color: black; /* Set text color to black */
 }
 
 .nav-button:hover {
   background: #eaeaea;
+}
+
+/* LoginPage Styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  color: black; /* Set text color to black */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Thread List Styles */
+.thread-card {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.thread-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.thread-title {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.thread-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.home-page {
+  padding: 20px;
+}
+
+.home-title {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.no-threads-message {
+  text-align: center;
+}
+
+/* ThreadPage Styles */
+input {
+  padding: 10px;
+  width: 80%;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+button.delete {
+  background-color: #ff6347;
+  color: white;
+  padding: 5px 10px;
 }

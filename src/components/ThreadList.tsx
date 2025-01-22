@@ -1,29 +1,23 @@
-
 import React from "react";
+import { Thread } from "../types/types";
 
-interface Thread {
-  id: number;
-  title: string;
-  category: string;
+interface ThreadListProps {
+  threads: Thread[];
+  onThreadClick: (id: number) => void;
 }
 
-const threads: Thread[] = [
-  { id: 1, title: "Welcome to the forum", category: "General" },
-  { id: 2, title: "React Tips & Tricks", category: "Programming" },
-  { id: 3, title: "Best Books to Read", category: "Books" },
-];
-
-const ThreadList: React.FC = () => {
+const ThreadList: React.FC<ThreadListProps> = ({ threads, onThreadClick }) => {
   return (
     <div>
-      <h2>Threads</h2>
-      <ul>
-        {threads.map((thread) => (
-          <li key={thread.id}>
-            <strong>{thread.title}</strong> - {thread.category}
-          </li>
-        ))}
-      </ul>
+      {threads.map((thread) => (
+        <div
+          key={thread.id}
+          className="thread-card"
+          onClick={() => onThreadClick(thread.id)}
+        >
+          <div className="thread-title">{thread.title}</div>
+        </div>
+      ))}
     </div>
   );
 };

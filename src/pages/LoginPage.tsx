@@ -20,104 +20,34 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        height: "100vh",
-        padding: "20px",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "350px", // Keep box width more consistent
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          backgroundColor: "white",
-        }}
-      >
-        <h2 style={{ marginBottom: "20px", fontSize: "18px", textAlign: "center" }}>
-          Login
-        </h2>
+    <div className="login-container">
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "15px" }}>
-            <label
-              htmlFor="username"
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                fontWeight: "bold",
-                fontSize: "14px",
-              }}
-            >
-              Username
-            </label>
+          <div>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "10px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                boxSizing: "border-box", // Ensure padding does not affect width
-              }}
+              className="login-input"
               placeholder="Enter your username"
             />
           </div>
-          <div style={{ marginBottom: "15px" }}>
-            <label
-              htmlFor="password"
-              style={{
-                display: "block",
-                marginBottom: "5px",
-                fontWeight: "bold",
-                fontSize: "14px",
-              }}
-            >
-              Password
-            </label>
+          <div>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "10px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                boxSizing: "border-box", // Ensure padding does not affect width
-              }}
+              className="login-input"
               placeholder="Enter your password"
             />
           </div>
-          {error && (
-            <p style={{ color: "red", fontSize: "14px", marginBottom: "15px" }}>
-              {error}
-            </p>
-          )}
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              border: "none",
-              backgroundColor: "#007BFF",
-              color: "white",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
-            Log In
-          </button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          <button type="submit" className="login-button">Login</button>
         </form>
       </div>
     </div>
