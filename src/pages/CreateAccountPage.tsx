@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-interface LoginPageProps {
-  onLogin: (username: string, password: string) => void;
-  onCreateAccount: () => void; // New prop for navigation to CreateAccountPage
+interface CreateAccountPageProps {
+  onCreateAccountSubmit: (username: string, password: string) => void;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onCreateAccount }) => {
+const CreateAccountPage: React.FC<CreateAccountPageProps> = ({ onCreateAccountSubmit }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,14 +15,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onCreateAccount }) => {
       setError("Both fields are required.");
     } else {
       setError("");
-      onLogin(username, password);
+      onCreateAccountSubmit(username, password);
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2 className="login-title">Login</h2>
+    <div className="create-account-container">
+      <div className="create-account-box">
+        <h2 className="create-account-title">Create New Account</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username">Username</label>
@@ -32,7 +31,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onCreateAccount }) => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="login-input"
+              className="create-account-input"
               placeholder="Enter your username"
             />
           </div>
@@ -43,33 +42,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onCreateAccount }) => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="login-input"
+              className="create-account-input"
               placeholder="Enter your password"
             />
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
-          <button type="submit" className="login-button">Login</button>
+          <button type="submit" className="create-account-button">Create Account</button>
         </form>
-
-        <button
-          onClick={onCreateAccount}
-          className="create-account-button"
-          style={{
-            marginTop: "10px",
-            padding: "10px 20px",
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            width: "100%",
-          }}
-        >
-          Create Account
-        </button>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default CreateAccountPage;

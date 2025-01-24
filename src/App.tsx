@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
 import ThreadPage from "./pages/ThreadPage";
 import AddThreadPage from "./pages/AddThreadPage";
 import EditThreadPage from "./pages/EditThreadPage";
-import EditCommentPage from "./pages/EditCommentPage"; // Import EditCommentPage
-import AddCommentPage from "./pages/AddCommentPage";"./pages/AddCommentPage";
+import EditCommentPage from "./pages/EditCommentPage";
+import AddCommentPage from "./pages/AddCommentPage";
 import { Thread } from "./types/types";
 
 const App: React.FC = () => {
@@ -16,28 +17,28 @@ const App: React.FC = () => {
       id: 1,
       title: "New Lifters!",
       description: "Introduce yourself here!",
+      category: "training",
       comments: ["Great thread!", "Looking forward to joining."],
     },
     {
       id: 2,
       title: "Latest Discussions",
       description: "Discuss your lifting knowledge",
+      category: "advice",
       comments: ["I'm all in!", "I need some tips."],
     },
     {
       id: 3,
       title: "Useful Tips",
       description: "Students' tips and tricks.",
+      category: "advice",
       comments: [],
     },
   ]);
   const [loggedInUsername, setLoggedInUsername] = useState<string | null>(null);
   const [selectedThreadId, setSelectedThreadId] = useState<number | null>(null);
-  const [selectedCommentIndex, setSelectedCommentIndex] = useState<number | null>(
-    null
-  );
-  const [isAddingComment, setIsAddingComment] = useState<boolean>(false);
-  const [newCommentText, setNewCommentText] = useState<string>(""); // State to track comment input text
+  const [selectedCommentIndex, setSelectedCommentIndex] = useState<number | null>(null);
+  const [newCommentText, setNewCommentText] = useState<string>("");
 
   // Handle login logic
   const handleLogin = (username: string, password: string) => {
@@ -49,85 +50,27 @@ const App: React.FC = () => {
     }
   };
 
-  // Handle "Add Thread" button
-  const handleAddThread = () => {
-    if (!loggedInUsername) {
-      setCurrentPage("login"); // Redirect to login if not logged in
-    } else {
-      setCurrentPage("addthread"); // Go to "Add Thread" page if logged in
-    }
+  // Handle account creation logic
+  const handleCreateAccount = (username: string, password: string) => {
+    alert(`Account created for ${username}`); // Placeholder for account creation
+    setCurrentPage("login"); // Redirect to login after account creation
   };
 
-  // Save new thread
-  const saveNewThread = (title: string, description: string) => {
-    const newThread = { id: threads.length + 1, title, description, comments: [] };
-    setThreads((prevThreads) => [...prevThreads, newThread]);
-    setCurrentPage("home"); // After saving thread, return to home page
-  };
-
-  // Save edited thread
-  const saveEditedThread = (id: number, title: string, description: string) => {
-    setThreads((prevThreads) =>
-      prevThreads.map((thread) =>
-        thread.id === id ? { ...thread, title, description } : thread
-      )
-    );
-    setCurrentPage("home");
-  };
-
-  // Handle delete thread
-  const handleDeleteThread = (threadId: number) => {
-    setThreads(threads.filter((thread) => thread.id !== threadId));
-    setCurrentPage("home");
-  };
-
-  // Save edited comment
-  const saveEditedComment = (
-    threadId: number,
-    commentIndex: number,
-    newComment: string
-  ) => {
-    setThreads((prevThreads) =>
-      prevThreads.map((thread) =>
-        thread.id === threadId
-          ? {
-              ...thread,
-              comments: thread.comments.map((comment, index) =>
-                index === commentIndex ? newComment : comment
-              ),
-            }
-          : thread
-      )
-    );
-    setCurrentPage("thread"); // Go back to thread page after saving comment
-  };
-
-  // Handle adding a comment
-  const handleAddComment = () => {
-    setIsAddingComment(true); // Set state to show comment form
-  };
-
-  // Save new comment
-  const handleSaveComment = (threadId: number) => {
-    if (newCommentText.trim() === "") {
+  // Handle adding a new comment
+  const handleAddComment = (threadId: number, commentText: string) => {
+    if (commentText.trim() === "") {
       alert("Comment cannot be empty!");
       return;
     }
-
     setThreads((prevThreads) =>
       prevThreads.map((thread) =>
         thread.id === threadId
-          ? {
-              ...thread,
-              comments: [...thread.comments, newCommentText], // Add the actual comment text
-            }
+          ? { ...thread, comments: [...thread.comments, commentText] }
           : thread
       )
     );
-
-    setNewCommentText(""); // Reset the comment text after saving
-    setIsAddingComment(false); // Close the comment form
-    setCurrentPage("thread"); // Stay on the thread page after adding comment
+    setNewCommentText(""); // Clear the comment input after saving
+    setCurrentPage("thread"); // Redirect back to the thread page
   };
 
   // Render pages
@@ -145,32 +88,38 @@ const App: React.FC = () => {
           />
         );
       case "login":
-        return <LoginPage onLogin={handleLogin} />;
+        return (
+          <LoginPage
+            onLogin={handleLogin}
+            onCreateAccount={() => setCurrentPage("createaccount")} // Navigate to create account page
+          />
+        );
+      case "createaccount":
+        return (
+          <CreateAccountPage
+            onCreateAccountSubmit={handleCreateAccount} // Handle account creation
+          />
+        );
       case "thread":
         return (
           <ThreadPage
             threadId={selectedThreadId as number}
             threads={threads}
             loggedInUsername={loggedInUsername}
-            onDeleteThread={handleDeleteThread}
+            onDeleteThread={(threadId) => {
+              setThreads(threads.filter((thread) => thread.id !== threadId));
+              setCurrentPage("home");
+            }}
             onEditThread={() => setCurrentPage("editthread")}
-            onAddComment={handleAddComment} // Add handler for add comment button
+            onAddComment={() => {
+              setCurrentPage("addcomment");
+            }}
             onEditComment={(commentIndex) => {
               setSelectedCommentIndex(commentIndex);
               setCurrentPage("editcomment");
             }}
           />
         );
-      case "addthread":
-        return <AddThreadPage onSaveThread={saveNewThread} />;
-      case "editthread":
-        if (selectedThreadId) {
-          const thread = threads.find((t) => t.id === selectedThreadId);
-          if (thread) {
-            return <EditThreadPage thread={thread} onSaveEdit={saveEditedThread} />;
-          }
-        }
-        return <div>Thread not found</div>;
       case "editcomment":
         if (selectedCommentIndex !== null && selectedThreadId !== null) {
           const thread = threads.find((t) => t.id === selectedThreadId);
@@ -181,13 +130,66 @@ const App: React.FC = () => {
                 threadId={selectedThreadId}
                 commentIndex={selectedCommentIndex}
                 initialComment={comment}
-                onSaveEdit={saveEditedComment}
+                onSaveEdit={(threadId, commentIndex, newComment) => {
+                  setThreads((prevThreads) =>
+                    prevThreads.map((thread) =>
+                      thread.id === threadId
+                        ? {
+                            ...thread,
+                            comments: thread.comments.map((c, i) =>
+                              i === commentIndex ? newComment : c
+                            ),
+                          }
+                        : thread
+                    )
+                  );
+                  setCurrentPage("thread");
+                }}
                 onCancelEdit={() => setCurrentPage("thread")}
+                onDeleteComment={(threadId, commentIndex) => {
+                  setThreads((prevThreads) =>
+                    prevThreads.map((thread) =>
+                      thread.id === threadId
+                        ? {
+                            ...thread,
+                            comments: thread.comments.filter((_, i) => i !== commentIndex),
+                          }
+                        : thread
+                    )
+                  );
+                  setCurrentPage("thread");
+                }}
               />
             );
           }
         }
         return <div>Thread not found</div>;
+      case "addthread":
+        return (
+          <AddThreadPage
+            onSaveThread={(title, description, category) => {
+              const newThread = {
+                id: threads.length + 1,
+                title,
+                description,
+                category,
+                comments: [],
+              };
+              setThreads([...threads, newThread]);
+              setCurrentPage("home");
+            }}
+          />
+        );
+      case "addcomment":
+        return (
+          <AddCommentPage
+            threadId={selectedThreadId as number}
+            commentText={newCommentText}
+            setCommentText={setNewCommentText}
+            onSaveComment={handleAddComment} // Pass down the handleAddComment function
+            onCancel={() => setCurrentPage("thread")} // Cancel and go back to thread
+          />
+        );
       default:
         return <HomePage threads={threads} onThreadClick={() => {}} loggedInUsername={loggedInUsername} />;
     }
@@ -195,47 +197,12 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Header onNavigate={setCurrentPage} onAddThread={handleAddThread} />
-      <main style={{ width: "80%", margin: "20px auto" }}>
-        {isAddingComment ? (
-          <div>
-            <textarea
-              value={newCommentText}
-              onChange={(e) => setNewCommentText(e.target.value)} // Bind the text area to state
-              placeholder="Enter your comment here..."
-              rows={4}
-              cols={50}
-              style={{ padding: "10px", fontSize: "16px" }}
-            />
-            <button
-              onClick={() => handleSaveComment(selectedThreadId as number)} // Save the actual comment
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#28a745",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-              }}
-            >
-              Save Comment
-            </button>
-            <button
-              onClick={() => setIsAddingComment(false)} // Cancel button
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#FF5733",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        ) : (
-          renderPage()
-        )}
-      </main>
+      <Header
+        onNavigate={setCurrentPage}
+        onAddThread={() => setCurrentPage("addthread")}
+        loggedInUsername={loggedInUsername}
+      />
+      <main style={{ width: "80%", margin: "20px auto" }}>{renderPage()}</main>
     </div>
   );
 };

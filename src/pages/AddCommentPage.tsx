@@ -1,64 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface AddCommentPageProps {
-  threadId: number;
-  onSaveComment: (threadId: number, comment: string) => void;
+  onSaveComment: (threadId: number, commentText: string) => void;
   onCancel: () => void;
+  threadId: number;
+  commentText: string;
+  setCommentText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AddCommentPage: React.FC<AddCommentPageProps> = ({ threadId, onSaveComment, onCancel }) => {
-  const [comment, setComment] = useState("");
-
-  const handleSubmit = () => {
-    if (comment.trim()) {
-      onSaveComment(threadId, comment);
-      setComment(""); // Clear the input field after saving
-    }
-  };
-
+const AddCommentPage: React.FC<AddCommentPageProps> = ({
+  onSaveComment,
+  onCancel,
+  threadId,
+  commentText,
+  setCommentText,
+}) => {
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Add a Comment</h2>
+    <div>
+      <h2>Add Comment to Thread</h2>
       <textarea
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
+        value={commentText}
+        onChange={(e) => setCommentText(e.target.value)} // Update comment text on change
+        placeholder="Enter your comment here..."
         rows={4}
+        cols={50}
         style={{
-          width: "100%",
           padding: "10px",
-          borderRadius: "5px",
-          border: "1px solid #ccc",
+          fontSize: "16px",
+          width: "100%",
           marginBottom: "10px",
         }}
-        placeholder="Write your comment here..."
       />
-      <div>
-        <button
-          onClick={handleSubmit}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#007BFF",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            marginRight: "10px",
-          }}
-        >
-          Save Comment
-        </button>
-        <button
-          onClick={onCancel}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#6c757d",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-          }}
-        >
-          Cancel
-        </button>
-      </div>
+      <br />
+      <button
+        onClick={() => onSaveComment(threadId, commentText)} // Save comment on click
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+        }}
+      >
+        Add Comment
+      </button>
+      <button
+        onClick={onCancel} // Cancel comment and go back to thread
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#FF5733",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          marginLeft: "10px",
+        }}
+      >
+        Cancel
+      </button>
     </div>
   );
 };

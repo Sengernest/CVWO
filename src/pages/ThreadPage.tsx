@@ -103,7 +103,7 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
                       marginLeft: "10px",
                     }}
                   >
-                    Edit Comment
+                    Edit/Delete Comment
                   </button>
                 )}
               </li>
