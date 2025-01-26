@@ -8,7 +8,7 @@ interface ThreadPageProps {
   onDeleteThread: (threadId: number) => void;
   onEditThread: () => void;
   onAddComment: () => void;
-  onEditComment: (commentIndex: number) => void; // Add Edit Comment callback
+  onEditComment: (commentIndex: number) => void;
 }
 
 const ThreadPage: React.FC<ThreadPageProps> = ({
@@ -18,7 +18,7 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
   onDeleteThread,
   onEditThread,
   onAddComment,
-  onEditComment, // Add Edit Comment prop
+  onEditComment,
 }) => {
   const thread = threads.find((t) => t.id === threadId);
 

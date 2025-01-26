@@ -73,6 +73,24 @@ const App: React.FC = () => {
     setCurrentPage("thread"); // Redirect back to the thread page
   };
 
+  // Handle editing a thread
+  const handleEditThread = (id: number, updatedTitle: string, updatedDescription: string, updatedCategory: string) => {
+    setThreads((prevThreads) =>
+      prevThreads.map((thread) =>
+        thread.id === id
+          ? { ...thread, title: updatedTitle, description: updatedDescription, category: updatedCategory }
+          : thread
+      )
+    );
+    setCurrentPage("thread");
+  };
+
+  // Handle logout logic
+  const handleLogout = () => {
+    setLoggedInUsername(null); // Reset loggedInUsername to null
+    window.location.reload(); // Refresh the page to reset app state and go to homepage
+  };
+
   // Render pages
   const renderPage = () => {
     switch (currentPage) {
@@ -110,7 +128,7 @@ const App: React.FC = () => {
               setThreads(threads.filter((thread) => thread.id !== threadId));
               setCurrentPage("home");
             }}
-            onEditThread={() => setCurrentPage("editthread")}
+            onEditThread={() => setCurrentPage("editthread")} // Fix: Navigate to Edit Thread page
             onAddComment={() => {
               setCurrentPage("addcomment");
             }}
@@ -120,45 +138,18 @@ const App: React.FC = () => {
             }}
           />
         );
-      case "editcomment":
-        if (selectedCommentIndex !== null && selectedThreadId !== null) {
+      case "editthread":
+        if (selectedThreadId !== null) {
           const thread = threads.find((t) => t.id === selectedThreadId);
           if (thread) {
-            const comment = thread.comments[selectedCommentIndex];
             return (
-              <EditCommentPage
+              <EditThreadPage
                 threadId={selectedThreadId}
-                commentIndex={selectedCommentIndex}
-                initialComment={comment}
-                onSaveEdit={(threadId, commentIndex, newComment) => {
-                  setThreads((prevThreads) =>
-                    prevThreads.map((thread) =>
-                      thread.id === threadId
-                        ? {
-                            ...thread,
-                            comments: thread.comments.map((c, i) =>
-                              i === commentIndex ? newComment : c
-                            ),
-                          }
-                        : thread
-                    )
-                  );
-                  setCurrentPage("thread");
-                }}
+                title={thread.title}
+                description={thread.description}
+                category={thread.category}
+                onSaveEdit={handleEditThread}
                 onCancelEdit={() => setCurrentPage("thread")}
-                onDeleteComment={(threadId, commentIndex) => {
-                  setThreads((prevThreads) =>
-                    prevThreads.map((thread) =>
-                      thread.id === threadId
-                        ? {
-                            ...thread,
-                            comments: thread.comments.filter((_, i) => i !== commentIndex),
-                          }
-                        : thread
-                    )
-                  );
-                  setCurrentPage("thread");
-                }}
               />
             );
           }
@@ -201,6 +192,7 @@ const App: React.FC = () => {
         onNavigate={setCurrentPage}
         onAddThread={() => setCurrentPage("addthread")}
         loggedInUsername={loggedInUsername}
+        onLogout={handleLogout} // Pass the handleLogout function to Header
       />
       <main style={{ width: "80%", margin: "20px auto" }}>{renderPage()}</main>
     </div>

@@ -41,6 +41,7 @@ const AddCommentPage: React.FC<AddCommentPageProps> = ({
           border: "none",
           borderRadius: "5px",
         }}
+        disabled={!commentText.trim()} // Disable if comment is empty
       >
         Add Comment
       </button>

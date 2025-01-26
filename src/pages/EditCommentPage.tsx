@@ -6,7 +6,7 @@ interface EditCommentPageProps {
   initialComment: string;
   onSaveEdit: (threadId: number, commentIndex: number, newComment: string) => void;
   onCancelEdit: () => void;
-  onDeleteComment: (threadId: number, commentIndex: number) => void; // New prop for delete
+  onDeleteComment: (threadId: number, commentIndex: number) => void;
 }
 
 const EditCommentPage: React.FC<EditCommentPageProps> = ({
@@ -15,9 +15,22 @@ const EditCommentPage: React.FC<EditCommentPageProps> = ({
   initialComment,
   onSaveEdit,
   onCancelEdit,
-  onDeleteComment, // Receive delete function
+  onDeleteComment,
 }) => {
   const [editedComment, setEditedComment] = React.useState<string>(initialComment);
+
+  const handleSave = () => {
+    if (editedComment.trim()) {
+      onSaveEdit(threadId, commentIndex, editedComment);
+    }
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
+    if (confirmDelete) {
+      onDeleteComment(threadId, commentIndex);
+    }
+  };
 
   return (
     <div>
@@ -28,6 +41,7 @@ const EditCommentPage: React.FC<EditCommentPageProps> = ({
         placeholder="Edit your comment here..."
         rows={4}
         cols={50}
+        aria-label="Edit your comment"
         style={{
           padding: "10px",
           fontSize: "16px",
@@ -37,19 +51,21 @@ const EditCommentPage: React.FC<EditCommentPageProps> = ({
       />
       <br />
       <button
-        onClick={() => onSaveEdit(threadId, commentIndex, editedComment)} // Save comment
+        onClick={handleSave}
+        disabled={!editedComment.trim()}
         style={{
           padding: "10px 20px",
-          backgroundColor: "#28a745",
+          backgroundColor: !editedComment.trim() ? "#6c757d" : "#28a745",
           color: "white",
           border: "none",
           borderRadius: "5px",
+          cursor: !editedComment.trim() ? "not-allowed" : "pointer",
         }}
       >
         Save Comment
       </button>
       <button
-        onClick={() => onDeleteComment(threadId, commentIndex)} // Delete comment
+        onClick={handleDelete}
         style={{
           padding: "10px 20px",
           backgroundColor: "#d9534f",
@@ -62,7 +78,7 @@ const EditCommentPage: React.FC<EditCommentPageProps> = ({
         Delete Comment
       </button>
       <button
-        onClick={() => onCancelEdit()} // Cancel edit and go back
+        onClick={onCancelEdit}
         style={{
           padding: "10px 20px",
           backgroundColor: "#FF5733",

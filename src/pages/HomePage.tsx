@@ -14,9 +14,9 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
   // Function to get filtered threads based on the selected category
   const getFilteredThreads = () => {
     if (filter === "all") {
-      return threads; // Return all threads
+      return threads; // Return all threads if no filter is applied
     }
-    return threads.filter((thread) => thread.category === filter); // Filter by category
+    return threads.filter((thread) => thread.category === filter); // Filter by selected category
   };
 
   return (
@@ -29,7 +29,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("all")}
           style={{
             padding: "10px 20px",
-            backgroundColor: "#28a745",
+            backgroundColor: filter === "all" ? "#28a745" : "#6c757d", // Highlight selected button
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -42,7 +42,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("training")}
           style={{
             padding: "10px 20px",
-            backgroundColor: "#007bff",
+            backgroundColor: filter === "training" ? "#007bff" : "#6c757d", // Highlight selected button
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -55,19 +55,28 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("diet")}
           style={{
             padding: "10px 20px",
-            backgroundColor: "#ffc107",
+            backgroundColor: filter === "diet" ? "#ffc107" : "#6c757d", // Highlight selected button
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            marginRight: "10px",
+          }}
+        >
+          Diet
+        </button>
+        <button
+          onClick={() => setFilter("recovery")}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: filter === "recovery" ? "#17a2b8" : "#6c757d", // Highlight selected button
             color: "white",
             border: "none",
             borderRadius: "5px",
           }}
         >
-          Diet
+          Recovery
         </button>
-        
-        
       </div>
-
-      
 
       {/* Pass filtered threads to ThreadList */}
       <ThreadList threads={getFilteredThreads()} onThreadClick={onThreadClick} />

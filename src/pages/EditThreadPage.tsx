@@ -1,28 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface EditThreadPageProps {
-  thread: { id: number; title: string; description: string }; // Receiving thread data
-  onSaveEdit: (id: number, title: string, description: string) => void; // Function to handle saving the edited thread
+  threadId: number;
+  title: string;
+  description: string;
+  category: string;
+  onSaveEdit: (
+    id: number,
+    updatedTitle: string,
+    updatedDescription: string,
+    updatedCategory: string
+  ) => void;
+  onCancelEdit: () => void;
 }
 
-const EditThreadPage: React.FC<EditThreadPageProps> = ({ thread, onSaveEdit }) => {
-  const [title, setTitle] = useState<string>(thread.title);
-  const [description, setDescription] = useState<string>(thread.description);
+const EditThreadPage: React.FC<EditThreadPageProps> = ({
+  threadId,
+  title,
+  description,
+  category,
+  onSaveEdit,
+  onCancelEdit,
+}) => {
+  const [editedTitle, setEditedTitle] = useState<string>(title);
+  const [editedDescription, setEditedDescription] = useState<string>(description);
+  const [editedCategory, setEditedCategory] = useState<string>(category);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    setEditedTitle(title);
+    setEditedDescription(description);
+    setEditedCategory(category);
+  }, [title, description, category]);
+
+  const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    onSaveEdit(thread.id, title, description); // Save the edited thread with correct id
+    if (!editedTitle || !editedDescription || editedCategory === "") {
+      alert("Please fill in all fields!");
+      return;
+    }
+    onSaveEdit(threadId, editedTitle, editedDescription, editedCategory); // Save edited thread
   };
 
   return (
     <div style={{ padding: "20px" }}>
       <h2>Edit Thread</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSave}>
         <div>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
             placeholder="Thread Title"
             style={{
               width: "100%",
@@ -33,10 +60,30 @@ const EditThreadPage: React.FC<EditThreadPageProps> = ({ thread, onSaveEdit }) =
             }}
           />
         </div>
+
+        {/* Category Dropdown with 3 categories: Training, Diet, Recovery */}
+        <div>
+          <select
+            value={editedCategory}
+            onChange={(e) => setEditedCategory(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+            }}
+          >
+            <option value="training">Training</option>
+            <option value="diet">Diet</option>
+            <option value="recovery">Recovery</option>
+          </select>
+        </div>
+
         <div>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
             placeholder="Thread Content"
             style={{
               width: "100%",
@@ -48,6 +95,7 @@ const EditThreadPage: React.FC<EditThreadPageProps> = ({ thread, onSaveEdit }) =
             }}
           />
         </div>
+
         <button
           type="submit"
           style={{
@@ -56,9 +104,24 @@ const EditThreadPage: React.FC<EditThreadPageProps> = ({ thread, onSaveEdit }) =
             color: "white",
             border: "none",
             borderRadius: "5px",
+            marginRight: "10px",
           }}
         >
           Save Changes
+        </button>
+
+        <button
+          onClick={onCancelEdit}
+          type="button"
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#FF5733",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+          }}
+        >
+          Cancel
         </button>
       </form>
     </div>

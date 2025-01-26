@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 
 interface AddThreadPageProps {
-  onSaveThread: (title: string, description: string, category: string) => void; // Now accepting category
+  onSaveThread: (title: string, description: string, category: string) => void;
 }
 
 const AddThreadPage: React.FC<AddThreadPageProps> = ({ onSaveThread }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [category, setCategory] = useState<string>("training"); // New state for category
+  const [category, setCategory] = useState<string>("training");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !description) {
+    if (!title || !description || category === "") {
       alert("Please fill in all fields!");
       return;
     }
-    onSaveThread(title, description, category); // Pass category to the parent component
+    onSaveThread(title, description, category);
+    
+    setTitle("");
+    setDescription("");
+    setCategory("training");
   };
 
   return (
@@ -52,7 +56,8 @@ const AddThreadPage: React.FC<AddThreadPageProps> = ({ onSaveThread }) => {
             }}
           >
             <option value="training">Training</option>
-            <option value="advice">Advice</option>
+            <option value="diet">Diet</option>
+            <option value="recovery">Recovery</option>
           </select>
         </div>
 

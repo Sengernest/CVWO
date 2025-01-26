@@ -4,9 +4,10 @@ interface HeaderProps {
   onNavigate: (page: string) => void;
   onAddThread: () => void; // Callback for Add Thread button
   loggedInUsername: string | null; // Pass loggedInUsername as a prop
+  onLogout: () => void; // Callback for Logout button
 }
 
-const Header: React.FC<HeaderProps> = ({ onNavigate, onAddThread, loggedInUsername }) => {
+const Header: React.FC<HeaderProps> = ({ onNavigate, onAddThread, loggedInUsername, onLogout }) => {
   return (
     <div className="header">
       <h1 className="header-title" onClick={() => onNavigate("home")} style={{ cursor: "pointer" }}>
@@ -21,7 +22,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, onAddThread, loggedInUserna
           <button className="nav-button" onClick={onAddThread}>Add Thread</button>
         )}
 
-        <button className="nav-button" onClick={() => onNavigate("login")}>Login</button>
+        {/* Show Login button only if the user is not logged in */}
+        {!loggedInUsername && (
+          <button className="nav-button" onClick={() => onNavigate("login")}>Login</button>
+        )}
+
+        {/* Show Logout button only if the user is logged in */}
+        {loggedInUsername && (
+          <button className="nav-button" onClick={onLogout}>Logout</button>
+        )}
       </div>
     </div>
   );

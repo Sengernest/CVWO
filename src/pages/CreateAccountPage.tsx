@@ -16,16 +16,19 @@ const CreateAccountPage: React.FC<CreateAccountPageProps> = ({ onCreateAccountSu
     } else {
       setError("");
       onCreateAccountSubmit(username, password);
+      // Clear form fields after successful submission
+      setUsername("");
+      setPassword("");
     }
   };
 
   return (
-    <div className="create-account-container">
-      <div className="create-account-box">
-        <h2 className="create-account-title">Create New Account</h2>
+    <div className="create-account-container" style={styles.container}>
+      <div className="create-account-box" style={styles.box}>
+        <h2 className="create-account-title" style={styles.title}>Create New Account</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" style={styles.label}>Username</label>
             <input
               type="text"
               id="username"
@@ -33,10 +36,11 @@ const CreateAccountPage: React.FC<CreateAccountPageProps> = ({ onCreateAccountSu
               onChange={(e) => setUsername(e.target.value)}
               className="create-account-input"
               placeholder="Enter your username"
+              style={styles.input}
             />
           </div>
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" style={styles.label}>Password</label>
             <input
               type="password"
               id="password"
@@ -44,14 +48,73 @@ const CreateAccountPage: React.FC<CreateAccountPageProps> = ({ onCreateAccountSu
               onChange={(e) => setPassword(e.target.value)}
               className="create-account-input"
               placeholder="Enter your password"
+              style={styles.input}
             />
           </div>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <button type="submit" className="create-account-button">Create Account</button>
+          {error && <p style={styles.error}>{error}</p>}
+          <button type="submit" className="create-account-button" style={styles.button}>Create Account</button>
         </form>
       </div>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#f4f7fc", // Light background
+  },
+  box: {
+    backgroundColor: "white",
+    borderRadius: "8px",
+    padding: "30px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    width: "100%",
+    maxWidth: "400px",
+    textAlign: "center" as "center", // Type assertion here to specify correct type
+  },
+  title: {
+    fontSize: "24px",
+    marginBottom: "20px",
+    fontWeight: "600",
+    color: "#333",
+  },
+  label: {
+    display: "block",
+    fontSize: "14px",
+    marginBottom: "6px",
+    textAlign: "left" as "left", // Type assertion to ensure valid type
+    color: "#555",
+  },
+  input: {
+    width: "100%",
+    padding: "12px 16px",
+    marginBottom: "16px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "16px",
+    boxSizing: "border-box" as "border-box", // Type assertion to specify correct type
+    transition: "all 0.3s ease",
+  },
+  error: {
+    color: "red",
+    fontSize: "14px",
+    marginBottom: "16px",
+  },
+  button: {
+    width: "100%",
+    padding: "14px",
+    backgroundColor: "#007BFF",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    fontSize: "16px",
+    cursor: "pointer",
+    transition: "background-color 0.3s ease",
+  },
 };
 
 export default CreateAccountPage;
