@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 interface LoginPageProps {
   onLogin: (username: string, password: string) => void;
-  onCreateAccount: () => void; // New prop for navigation to CreateAccountPage
+  onCreateAccount: () => void; 
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onCreateAccount }) => {

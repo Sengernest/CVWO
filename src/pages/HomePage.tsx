@@ -21,7 +21,6 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
   return (
     <div style={{ padding: "20px" }}>
 
-      {/* Category filter buttons */}
       <div style={{ marginBottom: "20px" }}>
         <button
           onClick={() => setFilter("all")}

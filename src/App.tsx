@@ -40,7 +40,7 @@ const App: React.FC = () => {
   const [selectedCommentIndex, setSelectedCommentIndex] = useState<number | null>(null);
   const [newCommentText, setNewCommentText] = useState<string>("");
 
-  // Handle login logic
+
   const handleLogin = (username: string, password: string) => {
     if (username === "admin" && password === "password") {
       setLoggedInUsername(username);
@@ -50,13 +50,11 @@ const App: React.FC = () => {
     }
   };
 
-  // Handle account creation logic
   const handleCreateAccount = (username: string, password: string) => {
     alert(`Account created for ${username}`); 
     setCurrentPage("login");
   };
 
-  // Handle adding a new comment
   const handleAddComment = (threadId: number, commentText: string) => {
     if (commentText.trim() === "") {
       alert("Comment cannot be empty!");
@@ -73,7 +71,6 @@ const App: React.FC = () => {
     setCurrentPage("thread"); 
   };
 
-  // Handle editing a thread
   const handleEditThread = (id: number, updatedTitle: string, updatedDescription: string, updatedCategory: string) => {
     setThreads((prevThreads) =>
       prevThreads.map((thread) =>
@@ -85,13 +82,11 @@ const App: React.FC = () => {
     setCurrentPage("thread");
   };
 
-  // Handle logout logic
   const handleLogout = () => {
     setLoggedInUsername(null); 
     window.location.reload(); 
   };
 
-  // Render pages
   const renderPage = () => {
     switch (currentPage) {
       case "home":
