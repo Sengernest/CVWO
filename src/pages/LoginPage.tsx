@@ -16,7 +16,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onCreateAccount }) => {
       setError("Both fields are required.");
     } else {
       setError("");
-      onLogin(username, password); // Trigger login
+      onLogin(username, password); 
     }
   };
 

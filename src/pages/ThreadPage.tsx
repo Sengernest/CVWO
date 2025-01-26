@@ -31,7 +31,6 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
       <h2>{thread.title}</h2>
       <p>{thread.description}</p>
 
-      {/* Only show the Edit button if the user is logged in */}
       {loggedInUsername && (
         <button
           onClick={onEditThread}
@@ -48,7 +47,6 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
         </button>
       )}
 
-      {/* Only show the Add Comment button if the user is logged in */}
       {loggedInUsername && (
         <button
           onClick={onAddComment}
@@ -65,7 +63,6 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
         </button>
       )}
 
-      {/* Only show the Delete button if the user is logged in */}
       {loggedInUsername && (
         <button
           onClick={() => onDeleteThread(thread.id)}
@@ -81,7 +78,6 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
         </button>
       )}
 
-      {/* Comments section */}
       {thread.comments.length > 0 && (
         <div style={{ marginTop: "20px" }}>
           <h3>Comments:</h3>
@@ -90,7 +86,6 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
               <li key={index} style={{ marginBottom: "10px", fontSize: "16px" }}>
                 {comment}
 
-                {/* Show Edit Comment button next to each comment */}
                 {loggedInUsername && (
                   <button
                     onClick={() => onEditComment(index)}
@@ -112,7 +107,6 @@ const ThreadPage: React.FC<ThreadPageProps> = ({
         </div>
       )}
 
-      {/* If no comments, show a message */}
       {thread.comments.length === 0 && (
         <p>No comments yet. Be the first to add a comment!</p>
       )}

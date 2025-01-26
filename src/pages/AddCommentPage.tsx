@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../index.css"; 
 interface AddCommentPageProps {
   onSaveComment: (threadId: number, commentText: string) => void;
   onCancel: () => void;
@@ -16,45 +16,27 @@ const AddCommentPage: React.FC<AddCommentPageProps> = ({
   setCommentText,
 }) => {
   return (
-    <div>
+    <div className="add-comment-container">
       <h2>Add Comment to Thread</h2>
       <textarea
         value={commentText}
-        onChange={(e) => setCommentText(e.target.value)} // Update comment text on change
+        onChange={(e) => setCommentText(e.target.value)} 
         placeholder="Enter your comment here..."
         rows={4}
         cols={50}
-        style={{
-          padding: "10px",
-          fontSize: "16px",
-          width: "100%",
-          marginBottom: "10px",
-        }}
+        className="add-comment-textarea"
       />
       <br />
       <button
-        onClick={() => onSaveComment(threadId, commentText)} // Save comment on click
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#28a745",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-        }}
-        disabled={!commentText.trim()} // Disable if comment is empty
+        onClick={() => onSaveComment(threadId, commentText)} 
+        className="add-comment-button"
+        disabled={!commentText.trim()}
       >
         Add Comment
       </button>
       <button
-        onClick={onCancel} // Cancel comment and go back to thread
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#FF5733",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          marginLeft: "10px",
-        }}
+        onClick={onCancel} 
+        className="cancel-button"
       >
         Cancel
       </button>

@@ -16,7 +16,7 @@ const CreateAccountPage: React.FC<CreateAccountPageProps> = ({ onCreateAccountSu
     } else {
       setError("");
       onCreateAccountSubmit(username, password);
-      // Clear form fields after successful submission
+      
       setUsername("");
       setPassword("");
     }
@@ -65,7 +65,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    backgroundColor: "#f4f7fc", // Light background
+    backgroundColor: "#f4f7fc", 
   },
   box: {
     backgroundColor: "white",
@@ -74,7 +74,7 @@ const styles = {
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     width: "100%",
     maxWidth: "400px",
-    textAlign: "center" as "center", // Type assertion here to specify correct type
+    textAlign: "center" as "center", 
   },
   title: {
     fontSize: "24px",
@@ -86,7 +86,7 @@ const styles = {
     display: "block",
     fontSize: "14px",
     marginBottom: "6px",
-    textAlign: "left" as "left", // Type assertion to ensure valid type
+    textAlign: "left" as "left", 
     color: "#555",
   },
   input: {
@@ -96,7 +96,7 @@ const styles = {
     borderRadius: "5px",
     border: "1px solid #ccc",
     fontSize: "16px",
-    boxSizing: "border-box" as "border-box", // Type assertion to specify correct type
+    boxSizing: "border-box" as "border-box", 
     transition: "all 0.3s ease",
   },
   error: {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../index.css"; 
 
 interface AddThreadPageProps {
   onSaveThread: (title: string, description: string, category: string) => void;
@@ -41,8 +42,7 @@ const AddThreadPage: React.FC<AddThreadPageProps> = ({ onSaveThread }) => {
             }}
           />
         </div>
-        
-        {/* Category Dropdown */}
+    
         <div>
           <select
             value={category}

@@ -9,19 +9,17 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUsername }) => {
-  const [filter, setFilter] = useState<string>("all"); // State to track selected filter
-
-  // Function to get filtered threads based on the selected category
+  const [filter, setFilter] = useState<string>("all"); 
+  
   const getFilteredThreads = () => {
     if (filter === "all") {
-      return threads; // Return all threads if no filter is applied
+      return threads; 
     }
-    return threads.filter((thread) => thread.category === filter); // Filter by selected category
+    return threads.filter((thread) => thread.category === filter); 
   };
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2 style={{ textAlign: "left", marginBottom: "20px" }}>Threads</h2>
 
       {/* Category filter buttons */}
       <div style={{ marginBottom: "20px" }}>
@@ -29,7 +27,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("all")}
           style={{
             padding: "10px 20px",
-            backgroundColor: filter === "all" ? "#28a745" : "#6c757d", // Highlight selected button
+            backgroundColor: filter === "all" ? "#28a745" : "#6c757d", 
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -42,7 +40,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("training")}
           style={{
             padding: "10px 20px",
-            backgroundColor: filter === "training" ? "#007bff" : "#6c757d", // Highlight selected button
+            backgroundColor: filter === "training" ? "#007bff" : "#6c757d", 
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -55,7 +53,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("diet")}
           style={{
             padding: "10px 20px",
-            backgroundColor: filter === "diet" ? "#ffc107" : "#6c757d", // Highlight selected button
+            backgroundColor: filter === "diet" ? "#ffc107" : "#6c757d", 
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -68,7 +66,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
           onClick={() => setFilter("recovery")}
           style={{
             padding: "10px 20px",
-            backgroundColor: filter === "recovery" ? "#17a2b8" : "#6c757d", // Highlight selected button
+            backgroundColor: filter === "recovery" ? "#17a2b8" : "#6c757d", 
             color: "white",
             border: "none",
             borderRadius: "5px",
@@ -78,7 +76,7 @@ const HomePage: React.FC<HomePageProps> = ({ threads, onThreadClick, loggedInUse
         </button>
       </div>
 
-      {/* Pass filtered threads to ThreadList */}
+      
       <ThreadList threads={getFilteredThreads()} onThreadClick={onThreadClick} />
     </div>
   );

@@ -47,7 +47,7 @@ body, html {
   gap: 10px;
 }
 
-/*hovering*/ 
+/* Hovering */ 
 .nav-button {
   padding: 10px 15px;
   border-radius: 5px;
@@ -55,7 +55,7 @@ body, html {
   background: #fff;
   cursor: pointer;
   font-size: 16px;
-  color: black; /* Set text color to black */
+  color: black;
 }
 
 .nav-button:hover {
@@ -99,7 +99,7 @@ body, html {
   width: 100%;
   padding: 10px;
   background-color: #007BFF;
-  color: black; /* Set text color to black */
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -116,7 +116,7 @@ body, html {
   font-size: 14px;
 }
 
-/* Thread List Styles */
+/* ThreadList Styles */
 .thread-card {
   margin-bottom: 20px;
   padding: 15px;
@@ -189,4 +189,86 @@ button.delete {
   background-color: #ff6347;
   color: white;
   padding: 5px 10px;
+}
+
+/* AddCommentPage Styles */
+.add-comment-container {
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.add-comment-textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.add-comment-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-comment-button:disabled {
+  background-color: #ccc;
+}
+
+.cancel-button {
+  padding: 10px 20px;
+  background-color: #ff5733;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* AddThreadPage Styles */
+.add-thread-container {
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.add-thread-input,
+.add-thread-select,
+.add-thread-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-thread-textarea {
+  height: 200px;
+}
+
+.add-thread-button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-thread-button:disabled {
+  background-color: #ccc;
 }

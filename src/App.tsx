@@ -52,8 +52,8 @@ const App: React.FC = () => {
 
   // Handle account creation logic
   const handleCreateAccount = (username: string, password: string) => {
-    alert(`Account created for ${username}`); // Placeholder for account creation
-    setCurrentPage("login"); // Redirect to login after account creation
+    alert(`Account created for ${username}`); 
+    setCurrentPage("login");
   };
 
   // Handle adding a new comment
@@ -69,8 +69,8 @@ const App: React.FC = () => {
           : thread
       )
     );
-    setNewCommentText(""); // Clear the comment input after saving
-    setCurrentPage("thread"); // Redirect back to the thread page
+    setNewCommentText("");
+    setCurrentPage("thread"); 
   };
 
   // Handle editing a thread
@@ -87,8 +87,8 @@ const App: React.FC = () => {
 
   // Handle logout logic
   const handleLogout = () => {
-    setLoggedInUsername(null); // Reset loggedInUsername to null
-    window.location.reload(); // Refresh the page to reset app state and go to homepage
+    setLoggedInUsername(null); 
+    window.location.reload(); 
   };
 
   // Render pages
@@ -109,13 +109,13 @@ const App: React.FC = () => {
         return (
           <LoginPage
             onLogin={handleLogin}
-            onCreateAccount={() => setCurrentPage("createaccount")} // Navigate to create account page
+            onCreateAccount={() => setCurrentPage("createaccount")} 
           />
         );
       case "createaccount":
         return (
           <CreateAccountPage
-            onCreateAccountSubmit={handleCreateAccount} // Handle account creation
+            onCreateAccountSubmit={handleCreateAccount}
           />
         );
       case "thread":
@@ -128,7 +128,7 @@ const App: React.FC = () => {
               setThreads(threads.filter((thread) => thread.id !== threadId));
               setCurrentPage("home");
             }}
-            onEditThread={() => setCurrentPage("editthread")} // Fix: Navigate to Edit Thread page
+            onEditThread={() => setCurrentPage("editthread")} 
             onAddComment={() => {
               setCurrentPage("addcomment");
             }}
@@ -177,8 +177,8 @@ const App: React.FC = () => {
             threadId={selectedThreadId as number}
             commentText={newCommentText}
             setCommentText={setNewCommentText}
-            onSaveComment={handleAddComment} // Pass down the handleAddComment function
-            onCancel={() => setCurrentPage("thread")} // Cancel and go back to thread
+            onSaveComment={handleAddComment} 
+            onCancel={() => setCurrentPage("thread")} 
           />
         );
       default:
@@ -192,7 +192,7 @@ const App: React.FC = () => {
         onNavigate={setCurrentPage}
         onAddThread={() => setCurrentPage("addthread")}
         loggedInUsername={loggedInUsername}
-        onLogout={handleLogout} // Pass the handleLogout function to Header
+        onLogout={handleLogout} 
       />
       <main style={{ width: "80%", margin: "20px auto" }}>{renderPage()}</main>
     </div>

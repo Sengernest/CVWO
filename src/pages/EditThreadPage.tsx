@@ -38,7 +38,7 @@ const EditThreadPage: React.FC<EditThreadPageProps> = ({
       alert("Please fill in all fields!");
       return;
     }
-    onSaveEdit(threadId, editedTitle, editedDescription, editedCategory); // Save edited thread
+    onSaveEdit(threadId, editedTitle, editedDescription, editedCategory); 
   };
 
   return (
@@ -61,7 +61,7 @@ const EditThreadPage: React.FC<EditThreadPageProps> = ({
           />
         </div>
 
-        {/* Category Dropdown with 3 categories: Training, Diet, Recovery */}
+  
         <div>
           <select
             value={editedCategory}
